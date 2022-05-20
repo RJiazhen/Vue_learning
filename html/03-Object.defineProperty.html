@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let number = 19;
+        let person = {
+            name: '张三',
+            sex: '男',
+        };
+
+        // 使用Object.defineProperty方法添加对象的属性，但是默认该属性是无法被遍历的
+        Object.defineProperty(person, 'age', {
+            value: '18',
+            enumerable: true,    // 通过设置enumerable属性为true从而让其能够被遍历
+            writable: true,     //控制属性能否被修改，默认为false
+            configurable: true, //控制属性能否被删除，默认为fasle
+
+            // 当读取该属性时，则会调用get函数，且该函数返回值就是age的值，从而实现灵活地设置age的值
+            get(){
+                console.log('读取了age属性')
+                return number
+            },
+            // 当修改该属性时，则会调用set函数，且该函数返回值是age的值，且会收到修改的值
+            set(value){
+                console.log('修改为'+value);
+                number = value
+            }
+
+        })
+
+        console.log(Object.keys(person));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .father {
+            background-color: aquamarine;
+            padding: 10px;
+        }
+
+        .son {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        通过在绑定的事件前添加对应的修饰符可以简便地对元素进行一些常见操作，而且这些修饰键可以连续写
+     -->
+    <div id="root">
+        <h2>这是学校名称{{school}}</h2>
+        <!-- 使用.prevent阻止默认事件 -->
+        <a href="bing.com" @click.prevent="showInfo">点击弹出信息而不跳转网页</a>
+        <!-- 使用.stop阻止冒泡 -->
+        <div class="demo1" @click="showInfo">
+            <button @click.stop="showInfo">点击弹出信息而不进行冒泡</button>
+        </div>
+        <!-- 使用.once让事件只触发一次 -->
+        <button @click.once="showInfo">点击只弹出一次信息</button>
+
+        <!-- 使用.capture让事件在捕获阶段就处理（默认情况是在冒泡阶段再处理的） -->
+        <div class="father" @click.capture="showMsg('父元素事件被触发')">这是一个有捕获功能的父元素
+            <div class="son" @click.capture="showMsg('子元素事件被触发')">这是一个子元素</div>
+        </div>
+        <!-- 使用.self让只有even.target是当前元素时才触发事件 -->
+        <div class="father" @click="showTarget()">这是一个父元素
+            <div class="son" @click.self="showTarget()">这是一个带有.target的子元素</div>
+        </div>
+        <!-- 使用.passive让事件的默认行为立即执行，而不需要等绑定事件执行完毕 -->
+
+    </div>
+
+</body>
+<script>
+    const vm = new Vue({
+        el: "#root",
+        data: {
+            school: '学校名称'
+        },
+        methods: {
+            showInfo(e) {
+                e.stopPropagation();
+                alert('提示信息');
+            },
+
+            showMsg(msg) {
+                console.log(msg);
+            },
+
+             (event){
+                console.log(event.target);
+            }
+        },
+    })
+</script>
+
+</html>

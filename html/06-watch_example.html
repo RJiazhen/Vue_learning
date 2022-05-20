@@ -1,0 +1,88 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" cedge">
+    <meta name="viewport" cth=device-width initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>今天的天气很{{info}}</h1>
+        <!-- 如果方法很简单，可以直接写在引号内，不需要全部在methods中写 -->
+        <!-- 但是要注意，这里属性是默认查询vm对象的，如果vm没有就查询原型，而不会一直向上查询 -->
+        <button @click="isHot= !isHot">切换天气</button>
+        <!-- 深度监视 -->
+        <hr>
+        <button @click="numbers.a++">a现在的值是{{numbers.a}}</button><br>
+        <button @click="numbers.b++">b现在的值是{{numbers.b}}</button><br>
+        <button @click="numbers={a:666, b:666}">彻底改变numbers</button><br>
+
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            isHot: true,
+            numbers: {
+                a:1,
+                b:1,
+            }
+        },
+        computed: {
+            info() {
+                return this.isHot ? '炎热' : '凉爽';
+            }
+        },
+        methods: {
+            changeWeather() {
+                this.isHot = !this.isHot;
+            }
+        },
+        // 添加watch对象，再往里面添加相应属性（包括computed计算属性），即可以监测该属性的变化
+        watch: {
+            // isHot: {
+            //     // immidiate:ture可以让初始化时就调用handler
+            //     // immediate: true,
+            //     // handler会在属性发生变化时调用
+            //     // handler(newValue, oldValue) {
+            //     //     console.log('这是isHot的旧的值：', oldValue, '这是isHot的新的值', newValue);
+            //     // }
+            // },
+
+            // 如果只需要配置handler，则可以这样简写，在vm外部设置监视的可以参照再下面的写法：
+            isHot(newValue, oldValue){
+                console.log('这是isHot的旧的值：', oldValue, '这是isHot的新的值', newValue);
+            },
+            // 这样写则可以检测对象内部的属性的变化
+            'numbers.a':{
+                handler(){
+                    console.log('a发生了变化');
+                }
+            },
+            // 添加deep可以用于监控多级数据的内部改变
+            numbers:{
+                deep:true,
+                handler(){
+                    console.log('numbers发生了变化');
+                }
+            }
+        }
+    });
+    // 用这种方法也可以添加对vm的属性的监视
+    // vm.$watch('isHot', {
+    //     // immidiate:ture可以让初始化时就调用handler
+    //     immediate: true,
+    //     // handler会在属性发生变化时调用
+    //     handler(newValue, oldValue) {
+    //         console.log('这是isHot的旧的值：', oldValue, '这是isHot的新的值', newValue);
+    //     }
+    // })
+    // 在外部添加对vm属性的监视，且只需要添加handler方法则可以这样写：
+    vm.$watch('isHot', function(){
+        console.log('这是isHot的旧的值：', oldValue, '这是isHot的新的值', newValue);
+    })
+</script>

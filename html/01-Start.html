@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div>
+            <!-- {{}}中可以填入js表达式，没有定义的数据会留空 -->
+            <h1>Hello, {{name}}, {{address}}, {{Date.now()}}, {{space}}</h1>
+        </div>
+
+        <div>
+            <!-- 指令语法 使用v-bind给任意属性动态地绑定data内的值，而且该语法可以简写为":"，还有很多其他的语法-->
+            <a v-bind:href='url'>这是一个vue指令语法超链接</a>
+            <a :href='url'>这是一个vue指令语法超链接</a>
+        </div>
+
+        <div>
+            <!-- 单向绑定 v-bind是单向绑定，输入框的值变化不会影响数据-->
+            <input type="text" :value="input.value1" style="color:#000">
+            <br>
+            <!-- 双向绑定 v-model是双向绑定，输入框的值变化会影响原数据 -->
+            <input type="text" v-model:value="input.value2" style="color:#000">
+            <br>
+            <!-- v-model默认收集的就是value值，所以可以如下图简写 -->
+            <input type="text" v-model="input.value2" style="color:#000">
+            <br>
+            <!-- 但是v-model只能用于表单类元素中，其他元素无法使用该语法 -->
+            <h1 v-model:x="name">v-model无法用于非表单类元素</h1>
+        </div>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+
+        // 创建Vue实例
+        const x = new Vue({
+            el: '#root', //el=element，值通常为CSS选择器字符串
+            // data的第一种写法，直接写data的内容
+            // data: {
+            //     name: 'world',
+            //     address: '上海',
+            //     url: 'http://www.bing.com',
+            //     input: {
+            //         value1: '测试单向绑定文本',
+            //         value2: '测试双向绑定文本'
+
+            //     }
+            // }
+            // data的第二种写法（函数式），写一个函数，用这个函数返回具体的数据
+            data() {
+                return {
+                    name: 'world',
+                    address: '上海',
+                    url: 'http://www.bing.com',
+                    input: {
+                        value1: '测试单向绑定文本',
+                        value2: '测试双向绑定文本'
+                    }
+            }
+        })
+    </script>
+</body>
+
+</html>
