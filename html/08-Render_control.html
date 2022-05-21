@@ -1,0 +1,52 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" cedge">
+    <meta name="viewport" cth=device-width initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+
+        <!-- 使用v-show做条件渲染，是设置display:none参数控制元素的显示与否
+        引号内可以写表达式，只要返回的是布尔值就可以了 -->
+        <h2 v-show="true">v-show控制渲染</h2>
+        <h2 v-show="1 === 3">v-show控制渲染</h2>
+
+        <!-- 使用v-if做条件渲染，与v-show不同的是直接控制元素的存在与否-->
+        <h2 v-if="true">v-if控制渲染</h2>
+        <h2 v-if="1 === 3">v-if控制渲染</h2>
+
+        <!-- 使用v-if、v-else-if和v-else做条件渲染，可以减少重复渲染的次数 -->
+        <button @click="nPlus">n+1</button>
+        <h2 v-if="n === 1">当n=1时显示</h2>
+        <!-- <h2>这里插入一个元素会打断v-if语法</h2> -->
+        <h2 v-else-if="n === 2">当n=2时显示</h2>
+        <h2 v-else-if="n === 3">当n=3时显示</h2>
+        <h2 v-else="">当n不等于1、2、3时显示</h2>
+
+        <!-- 使用template标签配合v-if可以批量控制多个元素的条件渲染，而且不影响结构 -->
+        <template v-if="n === 1">
+            <h2>批量显示的第一个h2</h2>
+            <h2>批量显示的第二个h2</h2>
+            <h2>批量显示的第三个h2</h2>
+        </template>
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            n: 1,
+        },
+        methods: {
+            nPlus() {
+                this.n++;
+                console.log(this.n);
+            }
+        },
+    })
+</script>

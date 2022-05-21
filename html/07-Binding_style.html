@@ -1,0 +1,78 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" cedge">
+    <meta name="viewport" cth=device-width initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .basic {
+            width: 100px;
+            height: 100px;
+            border: 1px #000;
+        }
+
+        .blue {
+            background: blue;
+        }
+
+        .yellow {
+            background: yellow;
+        }
+
+        .red {
+            background: red;
+        }
+
+        .rotate {
+            transform: rotate(45deg);
+        }
+
+        .radius {
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 字符串写法：通过:class将data中的数据与元素的class绑定，再通过修改数据从而来修改class -->
+        <div class="basic" :class="mood" @click="changeMood"></div>
+        <br>
+        <!-- 数组写法：通过在:class中添加数组，则可以绑定个数不确定的可变class -->
+        <div class="basic" :class="moods" @click="changeMoodArr"></div>
+        <br>
+        <!-- 对象写法：通过在:class中添加对象，动态调整要开启的class -->
+        <div class="basic" :class="moodObj" @click="changeMoodObj"></div>
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            mood: "blue",
+            moodArr: ['blue', 'yellow', 'red'],
+            moods: ['blue', 'rotate', 'radius'],
+            moodObj: {
+                blue: true,
+                rotate: false,
+                radius: false
+            }
+        },
+        methods: {
+            changeMood() {
+                // 通过设置数组和一个随机数，从而随机改变class
+                this.mood = this.moodArr[Math.floor(Math.random() * 3)];
+            },
+            changeMoodArr() {
+                // 通过操作数组从而动态设置class的种类和数量
+                this.moods.pop();
+            },
+            changeMoodObj() {
+                // 通过操作对象中各个class对应的true或false而动态地设置class
+                this.moodObj.rotate = true
+            }
+        },
+    })
+</script>
