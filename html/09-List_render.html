@@ -11,8 +11,9 @@
 <body>
     <div id="root">
         <ul>
-            <!-- v-for可以遍历数组、对象、字符串数据，index代表数据的索引值
-            且使用:key设置key值-->
+            <!-- v-for可以遍历数组、对象、字符串数据，index代表数据的索引值，且使用:key设置key值-->
+            <!-- !!!注意最好设置key为数据中的唯一值，如不设置则会自动使用其在数组中的index作为key，可能会在进行虚拟DOM比较时出现问题 -->
+            <!-- 而且这样还会渲染重复的DOM，影响效率 -->
             <li v-for="(p, index) in persons" :key="p.id">
                 {{p.name}}
             </li>

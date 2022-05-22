@@ -1,0 +1,57 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" cedge">
+    <meta name="viewport" cth=device-width initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>人员名单</h1>
+        <!-- 使用keyWord接受input的输入内容 -->
+        <input type="text" placeholder="请输入名字" v-model="keyWord">
+        <ul>
+            <li v-for="(p, index) of fillPersons" :key="p.id">
+                {{p.name}}-{{p.age}}-{{p.gender}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            keyWord: "",
+            persons: [
+                { id: '001', name: '周杰伦', age: 20, gender: '男' },
+                { id: '002', name: '马冬梅', age: 20, gender: '女' },
+                { id: '003', name: '周冬雨', age: 20, gender: '女' },
+                { id: '004', name: '温兆伦', age: 20, gender: '男' },
+            ],
+        },
+        // watch: {
+        //     // 监控keyWord数据的变化，并在变化时相应修改fillPersons
+        //     keyWord: {
+        //         immediate: true,
+        //         handler(val) {
+        //             this.fillPersons = this.persons.filter((p) => {
+        //                 return p.name.indexOf(val) !== -1;
+        //             });
+        //         }
+        //     }
+        // },
+
+        // 使用computed计算属性来显示筛选后的列表
+        computed: {
+            fillPersons() {
+                return this.persons.filter((p) => {
+                    return p.name.indexOf(this.keyWord) !== -1;
+                }); 
+            },
+        }
+    })
+</script>
