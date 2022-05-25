@@ -19,6 +19,7 @@ export default {
       todos: [],
     };
   },
+  props: ["addTodo"],
   methods: {
     add(event) {
       if (!event.target.value.trim()) return alert("输入不能为空");
@@ -27,8 +28,7 @@ export default {
         title: event.target.value,
         done: false,
       };
-      //   调用自定义事件将数据传回给App
-      this.$emit("addTodo", todoObj);
+      this.addTodo(todoObj);
       event.target.value = "";
     },
   },

@@ -2,7 +2,7 @@
   <div class="app">
     <!-- 将addTodo方法传给myinput，用于接收数据 -->
     <MyInput @addTodo="addTodo" />
-    <my-todo-list :todos="todos" />
+    <my-todo-list :todos="todos" @checkTodo="checkTodo" @deleteTodo="deleteTodo"/>
     <my-footer />
   </div>
 </template>
@@ -46,15 +46,6 @@ export default {
         return todo.id != id;
       });
     },
-  },
-  //   在mounted后在$bus中添加自定义事件以方便其他组件调用
-  mounted() {
-    this.$bus.$on("checkTodo", this.checkTodo);
-    this.$bus.$on("deleteTodo", this.deleteTodo);
-  },
-  beforeDestroy() {
-    this.$bus.$off("checkTodo");
-    this.$bus.$off("deleteTodo");
   },
 };
 </script>
