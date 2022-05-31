@@ -5,14 +5,26 @@
         <!-- 跳转路由携带query参数，用于传递参数 -->
         <!-- <router-link :to="`message/detail?id=${m.id}&title=${m.title}`">{{m.title}}</router-link> -->
         <!-- 使用对象携带query参数 -->
-        <router-link :to="{
+        <!-- <router-link :to="{
             path:'/home/message/detail',
             query:{
                 id:m.id,
                 title:m.title
             }
         }">
+          {{m.title}}</router-link> -->
+
+        <!-- 使用name配置传递的参数 -->
+        <router-link :to="{
+            name:'detail',
+            query:{
+                id:m.id,
+                title:m.title
+            }
+        }">
           {{m.title}}</router-link>
+        <button @click="pushShow(m)">push查看</button>
+        <button @click="replaceShow(m)">replace查看</button>
       </li>
     </ul>
     <hr>
@@ -31,6 +43,26 @@ export default {
         { id: "003", title: "消息003" },
       ],
     };
+  },
+  methods: {
+    pushShow(m) {
+      this.$router.push({
+        name: "detail",
+        query: {
+          id: m.id,
+          title: m.title,
+        },
+      });
+    },
+    replaceShow(m) {
+      this.$router.replace({
+        name: "detail",
+        query: {
+          id: m.id,
+          title: m.title,
+        },
+      });
+    },
   },
 };
 </script>

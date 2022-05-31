@@ -5,13 +5,16 @@
       <div>
         <ul class="nav nav-tabs">
           <li>
-            <router-link class="list-group-item" active-class="active" to="/home/news">News</router-link>
+            <router-link replace class="list-group-item" active-class="active" to="/home/news">News</router-link>
           </li>
           <li>
-            <router-link class="list-group-item" active-class="active" to="/home/message">Message</router-link>
+            <router-link replace class="list-group-item" active-class="active" to="/home/message">Message</router-link>
           </li>
         </ul>
-        <router-view></router-view>
+        <!-- 使用keep-alive标签设置不销毁的组件，include中接的参数是*组件名*，如不设置则默认保留所有的组件 -->
+        <keep-alive include="News">
+          <router-view></router-view>
+        </keep-alive>
       </div>
     </div>
   </div>

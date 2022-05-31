@@ -9,6 +9,8 @@
 <script>
 export default {
   name: "Detail",
+  //   使用props接收route中设定的参数
+  props: ["id", "title"],
 };
 </script>
 
